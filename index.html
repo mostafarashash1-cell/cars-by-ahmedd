@@ -157,6 +157,10 @@
       transition: all 0.3s ease;
       border: 1px solid #f1f5f9;
       margin-bottom: 1.5rem;
+      cursor: pointer;
+      /* Improve touch handling */
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
     }
     .car-card:hover {
       transform: translateY(-4px);
@@ -166,9 +170,18 @@
       .car-card {
         margin-bottom: 1rem;
         border-radius: 0.75rem;
+        /* Prevent accidental taps during scroll */
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
       }
       .car-card:hover {
         transform: translateY(-2px);
+      }
+      /* Add visual feedback for touch */
+      .car-card:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
       }
     }
     .car-card .img-wrap{
@@ -888,13 +901,50 @@
     }
 
     function attachBuyButtons() {
+      let isScrolling = false;
+      let touchStartY = 0;
+      let touchStartTime = 0;
+      
+      // Track touch start for scroll detection
+      document.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+        touchStartTime = Date.now();
+        isScrolling = false;
+      }, { passive: true });
+      
+      // Detect if user is scrolling
+      document.addEventListener('touchmove', (e) => {
+        const touchY = e.touches[0].clientY;
+        const deltaY = Math.abs(touchY - touchStartY);
+        
+        // If moved more than 10px vertically, consider it scrolling
+        if (deltaY > 10) {
+          isScrolling = true;
+        }
+      }, { passive: true });
+      
       $('#carsGrid').addEventListener('click', (e) => {
+        // Prevent action if user was scrolling
+        if (isScrolling) {
+          e.preventDefault();
+          return false;
+        }
+        
+        // Check if touch was too quick (likely accidental)
+        const touchDuration = Date.now() - touchStartTime;
+        if (touchDuration < 100) {
+          e.preventDefault();
+          return false;
+        }
+        
         const btn = e.target.closest('button[data-car]');
         const card = e.target.closest('.car-card[data-car-id]');
         
         if (btn) {
+          e.stopPropagation();
           $('#carName').value = btn.getAttribute('data-car');
         } else if (card) {
+          e.stopPropagation();
           // Open car details modal
           const carId = card.getAttribute('data-car-id');
           const car = CARS.find(c => c.id === carId);
@@ -903,6 +953,13 @@
           }
         }
       });
+      
+      // Reset scrolling flag after touch ends
+      document.addEventListener('touchend', () => {
+        setTimeout(() => {
+          isScrolling = false;
+        }, 100);
+      }, { passive: true });
     }
     
     function showCarDetails(car) {
@@ -1232,12 +1289,39 @@
       // Improve touch responsiveness
       document.addEventListener('touchstart', function() {}, { passive: true });
       
-      // Prevent double-tap zoom on buttons
-      const buttons = document.querySelectorAll('button, .btn, .car-card');
-      buttons.forEach(btn => {
-        btn.addEventListener('touchend', function(e) {
-          e.preventDefault();
-          this.click();
+      // Better touch handling for buttons and cards
+      const interactiveElements = document.querySelectorAll('button, .btn, a[href]');
+      interactiveElements.forEach(element => {
+        let touchStartTime = 0;
+        let touchStartY = 0;
+        let hasMoved = false;
+        
+        element.addEventListener('touchstart', (e) => {
+          touchStartTime = Date.now();
+          touchStartY = e.touches[0].clientY;
+          hasMoved = false;
+        }, { passive: true });
+        
+        element.addEventListener('touchmove', (e) => {
+          const deltaY = Math.abs(e.touches[0].clientY - touchStartY);
+          if (deltaY > 10) {
+            hasMoved = true;
+          }
+        }, { passive: true });
+        
+        element.addEventListener('touchend', (e) => {
+          const touchDuration = Date.now() - touchStartTime;
+          
+          // Only trigger click if:
+          // 1. Touch duration is reasonable (not too quick/too long)
+          // 2. User didn't move finger much (not scrolling)
+          if (!hasMoved && touchDuration > 100 && touchDuration < 1000) {
+            // Let the natural click event handle it
+            return;
+          } else {
+            // Prevent accidental clicks during scrolling
+            e.preventDefault();
+          }
         }, { passive: false });
       });
       
