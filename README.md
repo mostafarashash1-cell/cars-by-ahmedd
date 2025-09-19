@@ -1,23 +1,23 @@
-# 🚗 Ahmed Abdelwahab Cars - MG Dealership Website
+# 🚗 MG Kuwait - Official Alghanim Dealership Website
 
-**Live Website**: [Visit Ahmed Abdelwahab Cars](https://mostafarashash1-cell.github.io/cars-by-ahmed/)
+**Live Website**: [Visit MG Kuwait Dealership](https://mostafarashash1-cell.github.io/cars-by-ahmed/)
 
 ## 📱 Mobile-First Design
 Optimized for mobile phones with touch-friendly interactions and responsive layout.
 
 ## ✨ Key Features
-- **Personal MG Dealership** - Ahmed Abdelwahab, Kuwait
+- **Official MG Dealership** - Alghanim Sons Group, Kuwait
 - **Complete 2025 MG Lineup** - All new models with real images
 - **WhatsApp Integration** - Direct customer communication
 - **Financing Calculator** - Kuwaiti financing companies
 - **Interactive Car Gallery** - Detailed specifications and brochures
 - **Multilingual Support** - Arabic and English
 
-## Contact
+## Sales Representative
 
 **Ahmed Abdelwahab**  
-MG Sales Consultant - Kuwait  
-Personal Car Dealership
+Sales Consultant - Official MG Dealership  
+Alghanim Sons Group, Kuwait
 
 - 📱 WhatsApp: +965 9690 2117
 - 📧 Email: aradwan@alghanimsons.com
@@ -25,12 +25,12 @@ Personal Car Dealership
 
 ## License
 
-© 2025 Ahmed Abdelwahab Cars | معرض أحمد عبدالوهاب للسيارات. All rights reserved.
+© 2025 Alghanim Sons Group | مجموعة الغانم وأولاده. All rights reserved.
 
 ---
 
-**Personal MG Dealership in Kuwait**  
-Specializing in new MG vehicles with competitive prices and excellent service.
+**Official MG Dealership in Kuwait**  
+Authorized dealer with official warranty and exclusive after-sales services.
 
 ## Contact
 
