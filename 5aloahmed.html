@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <title>معرض السيارات الجديدة | أحدث الموديلات</title>
   <meta name="description" content="معرض الغانم للسيارات الجديدة - تصفح أحدث السيارات الجديدة، اختر الأنسب لك، وارسِل طلبك فوراً على واتساب." />
   <meta name="theme-color" content="#25D366" />
@@ -34,12 +37,19 @@
     body { 
       font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; 
       background: #ffffff;
+      font-size: 16px; /* Prevent zoom on iOS */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      touch-action: manipulation; /* Improve touch response */
     }
     .btn-wa { 
       background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); 
       border: none; 
       color: #fff;
       box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
+      min-height: 48px; /* Touch-friendly button size */
+      font-size: 1.1rem;
+      font-weight: 600;
     }
     .btn-wa:hover { 
       transform: translateY(-2px);
@@ -49,6 +59,9 @@
       background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); 
       border: none;
       box-shadow: 0 4px 15px rgba(55, 65, 81, 0.3);
+      min-height: 48px; /* Touch-friendly button size */
+      font-size: 1.1rem;
+      font-weight: 600;
     }
     .btn-primary:hover { 
       transform: translateY(-2px);
@@ -56,9 +69,24 @@
     }
 
     .hero {
-      position: relative; min-height: 65vh; display: grid; place-items: center;
+      position: relative; min-height: 85vh; display: grid; place-items: center;
       color: #fff; text-align: center; overflow: hidden; 
       background: #1f2937; /* Fallback color */
+    }
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 75vh;
+        padding: 2rem 0;
+      }
+      .hero h1 {
+        font-size: 1.8rem !important;
+        line-height: 1.3;
+        margin-bottom: 1rem !important;
+      }
+      .hero .lead {
+        font-size: 1rem !important;
+        margin-bottom: 2rem !important;
+      }
     }
     .hero-video {
       position: absolute;
@@ -121,17 +149,27 @@
     .whatsapp-chip svg { width: 18px; height: 18px; }
     .map-embed { border: 0; width: 100%; height: 260px; border-radius: 1rem; }
 
-    /* ---- Modern card design ---- */
+    /* Mobile-optimized card design */
     .car-card { 
       border: none; border-radius: 1rem; overflow: hidden; 
       background: #ffffff;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       transition: all 0.3s ease;
       border: 1px solid #f1f5f9;
+      margin-bottom: 1.5rem;
     }
     .car-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+    @media (max-width: 768px) {
+      .car-card {
+        margin-bottom: 1rem;
+        border-radius: 0.75rem;
+      }
+      .car-card:hover {
+        transform: translateY(-2px);
+      }
     }
     .car-card .img-wrap{
       position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
@@ -154,23 +192,108 @@
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
+    @media (max-width: 768px) {
+      .price-badge {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.7rem;
+        right: 0.75rem;
+        bottom: 0.75rem;
+      }
+    }
     .car-card .card-body{ display:flex; flex-direction:column; }
     .car-card .buy-wrap{ margin-top:auto; }
 
-    /* Floating WhatsApp Button */
+    /* Floating WhatsApp Button - Mobile Optimized */
     .fab-wa {
-      position: fixed; right: 24px; bottom: 24px; z-index: 1100;
+      position: fixed; right: 20px; bottom: 20px; z-index: 1100;
       display: inline-flex; align-items: center; justify-content: center;
-      width: 68px; height: 68px; border-radius: 999px; color: #fff;
+      width: 60px; height: 60px; border-radius: 999px; color: #fff;
       background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
       box-shadow: 0 15px 35px rgba(22, 163, 74, 0.3), 0 8px 15px rgba(0, 0, 0, 0.1);
       transition: all .3s ease;
+      text-decoration: none;
     }
     .fab-wa:hover { 
       transform: translateY(-4px) scale(1.05); 
       box-shadow: 0 20px 40px rgba(22, 163, 74, 0.4), 0 10px 20px rgba(0, 0, 0, 0.15); 
+      color: #fff;
     }
-    .fab-wa svg { width: 32px; height: 32px; }
+    .fab-wa svg { width: 28px; height: 28px; }
+    @media (max-width: 768px) {
+      .fab-wa {
+        width: 56px;
+        height: 56px;
+        right: 16px;
+        bottom: 16px;
+      }
+      .fab-wa svg { width: 26px; height: 26px; }
+    }
+    
+    /* Mobile-first responsive styles */
+    @media (max-width: 768px) {
+      .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      
+      .navbar-brand {
+        font-size: 1.2rem;
+      }
+      
+      .section-title {
+        font-size: 1.5rem !important;
+        margin-bottom: 1rem !important;
+      }
+      
+      .card-body {
+        padding: 1rem;
+      }
+      
+      .btn {
+        font-size: 1rem;
+        padding: 0.75rem 1.5rem;
+      }
+      
+      .btn-lg {
+        font-size: 1.1rem;
+        padding: 0.875rem 1.75rem;
+      }
+      
+      .whatsapp-chip {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+      }
+      
+      .list-hero {
+        flex-direction: column;
+        gap: 0.5rem !important;
+        font-size: 0.9rem;
+      }
+      
+      .contact-photo {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .form-control, .form-select {
+        font-size: 16px; /* Prevent zoom on iOS */
+        padding: 0.75rem;
+      }
+      
+      .modal-body {
+        padding: 1rem;
+      }
+      
+      .car-card .card-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .car-card .card-text {
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+    }
   </style>
 </head>
 <body>
@@ -207,7 +330,7 @@
         </span>
         <h1 class="display-4 mb-3">توكيل <span class="text-success">إم جي الرسمي</span> - مجموعة الغانم الكويت</h1>
         <p class="lead mb-4">الوكيل الحصري والمعتمد لسيارات إم جي في الكويت - تصفح واختر من أحدث موديلات إم جي الجديدة 2025 وأرسل طلبك بضغطة زر — مباشرةً على واتساب للحصول على أفضل العروض والخدمات الحصرية.</p>
-        <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <div class="d-flex gap-3 justify-content-center flex-wrap mb-3">
           <a id="ctaWhatsAppHero" class="btn btn-lg btn-wa text-white fw-semibold px-4" target="_blank" rel="noopener">تواصل الآن</a>
           <a href="#cars" class="btn btn-outline-light btn-lg fw-semibold px-4">تصفّح السيارات</a>
         </div>
@@ -228,9 +351,9 @@
           <h2 class="section-title mb-1">توكيل إم جي الرسمي - أحدث سيارات إم جي الجديدة 2025 بالكويت</h2>
           <p class="text-secondary mb-0">الوكيل الحصري والمعتمد - جميع سياراتنا جديدة 2025 بضمان الوكيل الرسمي. اختر سيارة إم جي الجديدة واضغط <strong>اشترِ الآن</strong> لإرسال التفاصيل على واتساب.</p>
         </div>
-        <div class="d-flex gap-2">
-          <input id="searchInput" type="search" class="form-control" placeholder="ابحث بالاسم..." style="max-width: 260px;">
-          <select id="filterSelect" class="form-select" style="max-width: 180px;">
+        <div class="d-flex gap-2 flex-wrap align-items-center">
+          <input id="searchInput" type="search" class="form-control" placeholder="ابحث بالاسم..." style="max-width: 200px; min-width: 150px;">
+          <select id="filterSelect" class="form-select" style="max-width: 160px; min-width: 140px;">
             <option value="all">جميع موديلات إم جي الجديدة</option>
             <option value="new">موديلات جديدة</option>
             <option value="premium">فئة فاخرة</option>
@@ -239,7 +362,7 @@
         </div>
       </div>
 
-      <div id="carsGrid" class="row g-4"></div>
+      <div id="carsGrid" class="row g-3"></div>
     </div>
   </section>
 
@@ -274,9 +397,9 @@
     </div>
   </section>
 
-  <!-- Purchase Modal -->
+  <!-- Purchase Modal - Mobile Optimized -->
   <div class="modal fade" id="purchaseModal" tabindex="-1" aria-labelledby="purchaseLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="purchaseLabel">نموذج شراء سيارة</h5>
@@ -378,9 +501,9 @@
     </div>
   </div>
 
-  <!-- Car Details Modal -->
+  <!-- Car Details Modal - Mobile Optimized -->
   <div class="modal fade" id="carDetailsModal" tabindex="-1" aria-labelledby="carDetailsLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-md-down">
       <div class="modal-content">
         <div class="modal-header border-0">
           <h5 class="modal-title" id="carDetailsLabel">تفاصيل السيارة</h5>
@@ -733,7 +856,7 @@
       }
       list.forEach(car => {
         const col = document.createElement("div");
-        col.className = "col-12 col-md-6 col-lg-4";
+        col.className = "col-12 col-sm-6 col-lg-4";
         col.innerHTML = `
           <div class="card h-100 shadow-soft car-card" data-car-id="${car.id}" style="cursor: pointer;">
             <div class="img-wrap">
@@ -1104,6 +1227,52 @@
       }
     }
 
+    // Mobile-specific optimizations
+    function setupMobileOptimizations() {
+      // Improve touch responsiveness
+      document.addEventListener('touchstart', function() {}, { passive: true });
+      
+      // Prevent double-tap zoom on buttons
+      const buttons = document.querySelectorAll('button, .btn, .car-card');
+      buttons.forEach(btn => {
+        btn.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          this.click();
+        }, { passive: false });
+      });
+      
+      // Auto-hide address bar on mobile
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          window.scrollTo(0, 1);
+        }, 100);
+      });
+      
+      // Improve form experience on mobile
+      const inputs = document.querySelectorAll('input, select, textarea');
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          // Scroll element into view on focus
+          setTimeout(() => {
+            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 300);
+        });
+      });
+      
+      // Better modal experience on mobile
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        modal.addEventListener('shown.bs.modal', function() {
+          document.body.style.position = 'fixed';
+          document.body.style.width = '100%';
+        });
+        modal.addEventListener('hidden.bs.modal', function() {
+          document.body.style.position = '';
+          document.body.style.width = '';
+        });
+      });
+    }
+
     // Init
     initFinanceOptions();
     renderCars(CARS);
@@ -1113,6 +1282,7 @@
     setupForm();
     wireCTAs();
     startThemeRotation();
+    setupMobileOptimizations();
     runSelfTests();
   </script>
 </body>
